@@ -373,3 +373,59 @@ class FakeClient(client.Client):
     def get_extensions_os_another(self, **kw):
         obj = self.get_extensions()[1]['extensions'][1]
         return (200, {'extension': obj})
+
+    #
+    # Limits
+    #
+
+    def get_limits(self, **kw):
+        return (200, {"limits": {
+            "rate": [
+                {
+                    "uri": "*",
+                    "regex": ".*",
+                    "limit": [
+                        {
+                            "value": 10,
+                            "verb": "POST",
+                            "remaining": 2,
+                            "unit": "MINUTE",
+                            "next-available": "2011-12-15T22:42:45Z"
+                        },
+                        {
+                            "value": 10,
+                            "verb": "PUT",
+                            "remaining": 2,
+                            "unit": "MINUTE",
+                            "next-available": "2011-12-15T22:42:45Z"
+                        },
+                        {
+                            "value": 100,
+                            "verb": "DELETE",
+                            "remaining": 100,
+                            "unit": "MINUTE",
+                            "next-available": "2011-12-15T22:42:45Z"
+                        }
+                    ]
+                },
+                {
+                    "uri": "*/servers",
+                    "regex": "^/servers",
+                    "limit": [
+                        {
+                            "verb": "POST",
+                            "value": 25,
+                            "remaining": 24,
+                            "unit": "DAY",
+                            "next-available": "2011-12-15T22:42:45Z"
+                        }
+                    ]
+                }
+            ],
+            "absolute": {
+                "maxTotalRAMSize": 51200,
+                "maxServerMeta": 5,
+                "maxImageMeta": 5,
+                "maxPersonality": 5,
+                "maxPersonalitySize": 10240
+            }}})

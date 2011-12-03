@@ -27,6 +27,7 @@ from openstack.compute.api.v2 import exceptions
 from openstack.compute.api.v2.resources import extensions
 from openstack.compute.api.v2.resources import flavors
 from openstack.compute.api.v2.resources import images
+from openstack.compute.api.v2.resources import limits
 from openstack.compute.api.v2.resources import servers
 
 
@@ -54,6 +55,7 @@ class Client(httplib2.Http):
         self.extensions = extensions.ExtensionManager(self)
         self.flavors = flavors.FlavorManager(self)
         self.images = images.ImageManager(self)
+        self.limits = limits.LimitsManager(self)
         self.servers = servers.ServerManager(self)
 
     def http_log(self, args, kwargs, resp, body):
