@@ -7,10 +7,11 @@
 OpenStack Client interface. Handles the REST calls and responses.
 """
 
-import httplib2
 import logging
 import os
 import urlparse
+
+import httplib2
 
 try:
     import json
@@ -21,7 +22,6 @@ except ImportError:
 if not hasattr(urlparse, 'parse_qsl'):
     import cgi
     urlparse.parse_qsl = cgi.parse_qsl
-
 
 from openstack.compute.api.v2 import exceptions
 from openstack.compute.api.v2 import flavors
