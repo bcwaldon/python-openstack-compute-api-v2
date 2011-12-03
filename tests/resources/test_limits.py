@@ -15,6 +15,9 @@ class LimitsTest(unittest.TestCase):
         cs.assert_called('GET', '/limits')
         self.assertTrue(isinstance(obj, limits.Limits))
 
+    def test_absolute_limits(self):
+        obj = cs.limits.get()
+
         expected = (
             limits.AbsoluteLimit("maxTotalRAMSize", 51200),
             limits.AbsoluteLimit("maxServerMeta", 5),
@@ -28,6 +31,9 @@ class LimitsTest(unittest.TestCase):
 
         for limit in abs_limits:
             self.assertTrue(limit in expected)
+
+    def test_rate_limits(self):
+        obj = cs.limits.get()
 
         expected = (
             limits.RateLimit('*', '.*', 'POST', 10, 2, 'MINUTE',
@@ -45,5 +51,3 @@ class LimitsTest(unittest.TestCase):
 
         for limit in rate_limits:
             self.assertTrue(limit in expected)
-
-
