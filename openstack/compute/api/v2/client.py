@@ -24,9 +24,10 @@ if not hasattr(urlparse, 'parse_qsl'):
     urlparse.parse_qsl = cgi.parse_qsl
 
 from openstack.compute.api.v2 import exceptions
-from openstack.compute.api.v2 import flavors
-from openstack.compute.api.v2 import images
-from openstack.compute.api.v2 import servers
+from openstack.compute.api.v2.resources import extensions
+from openstack.compute.api.v2.resources import flavors
+from openstack.compute.api.v2.resources import images
+from openstack.compute.api.v2.resources import servers
 
 
 _logger = logging.getLogger(__name__)
@@ -50,6 +51,7 @@ class Client(httplib2.Http):
         self.disable_ssl_certificate_validation = insecure
 
         # initialize resource-specific managers
+        self.extensions = extensions.ExtensionManager(self)
         self.flavors = flavors.FlavorManager(self)
         self.images = images.ImageManager(self)
         self.servers = servers.ServerManager(self)

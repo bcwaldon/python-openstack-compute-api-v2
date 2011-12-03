@@ -3,7 +3,7 @@
 Image interface.
 """
 
-from openstack.compute.api.v2 import base
+from openstack.compute.api.v2.resources import base
 
 
 class Image(base.Resource):

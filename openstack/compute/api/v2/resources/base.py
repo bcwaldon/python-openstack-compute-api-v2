@@ -191,6 +191,11 @@ class Resource(object):
     :param info: dictionary representing resource attributes
     :param loaded: prevent lazy-loading if set to True
     """
+
+    # NOTE: set this to a different field name if your resources doesn't
+    # use 'id' as the unique value
+    id_field = 'id'
+
     def __init__(self, manager, info, loaded=False):
         self.manager = manager
         self._info = info
@@ -218,21 +223,24 @@ class Resource(object):
         info = ", ".join("%s=%s" % (k, getattr(self, k)) for k in reprkeys)
         return "<%s %s>" % (self.__class__.__name__, info)
 
+    def _get_id(self):
+        return self.__dict__.get(self.id_field)
+
     def get(self):
         # set_loaded() first ... so if we have to bail, we know we tried.
         self.set_loaded(True)
         if not hasattr(self.manager, 'get'):
             return
 
-        new = self.manager.get(self.id)
+        new = self.manager.get(self._get_id())
         if new:
             self._add_details(new._info)
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
             return False
-        if hasattr(self, 'id') and hasattr(other, 'id'):
-            return self.id == other.id
+        if hasattr(self, self.id_field) and hasattr(other, self.id_field):
+            return self._get_id() == other._get_id()
         return self._info == other._info
 
     def is_loaded(self):

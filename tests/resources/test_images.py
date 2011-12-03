@@ -1,7 +1,7 @@
 
 import unittest
 
-from openstack.compute.api.v2 import images
+from openstack.compute.api.v2.resources import images
 from tests import fakes
 
 

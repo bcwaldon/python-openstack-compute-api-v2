@@ -347,3 +347,29 @@ class FakeClient(client.Client):
 
     def delete_images_1_metadata_test_key(self, **kw):
         return (204, None)
+
+    #
+    # Extensions
+    #
+
+    def get_extensions(self, **kw):
+        return (200, {'extensions': [
+            {
+                'name': 'Blargh Extension',
+                'alias': 'os-blargh',
+                'description': 'What is a blargh?',
+            },
+            {
+                'name': 'Another Extension',
+                'alias': 'os-another',
+                'description': 'Just another extension!',
+            },
+        ]})
+
+    def get_extensions_os_blargh(self, **kw):
+        obj = self.get_extensions()[1]['extensions'][0]
+        return (200, {'extension': obj})
+
+    def get_extensions_os_another(self, **kw):
+        obj = self.get_extensions()[1]['extensions'][1]
+        return (200, {'extension': obj})

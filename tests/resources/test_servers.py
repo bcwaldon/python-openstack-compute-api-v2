@@ -2,7 +2,7 @@
 import StringIO
 import unittest
 
-from openstack.compute.api.v2 import servers
+from openstack.compute.api.v2.resources import servers
 from tests import fakes
 
 

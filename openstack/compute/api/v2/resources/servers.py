@@ -21,7 +21,7 @@ Server interface.
 
 import urllib
 
-from openstack.compute.api.v2 import base
+from openstack.compute.api.v2.resources import base
 
 
 REBOOT_SOFT, REBOOT_HARD = 'SOFT', 'HARD'

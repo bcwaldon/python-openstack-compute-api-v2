@@ -2,7 +2,7 @@
 import unittest
 
 from openstack.compute.api.v2 import exceptions
-from openstack.compute.api.v2 import flavors
+from openstack.compute.api.v2.resources import flavors
 from tests import fakes
 
 
